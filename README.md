@@ -4,13 +4,11 @@ Roy Langa Munch assessment
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Hello, this is my munch assignmet, when I built the project I only selected ios and android, I unchecked Linux, Windows and Web.
 
-A few resources to get you started if this is your first Flutter project:
+These are my SDK versions:
+Flutter 3.7.12 • channel stable • https://github.com/flutter/flutter.git
+Dart SDK version: 2.19.6 (stable) (Tue Mar 28 13:41:04 2023 +0000) on "macos_x64"
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+I added a snackbar after you select a user just so that it can show you the password,
+I've implemented this for testing purposes.
