@@ -1,0 +1,62 @@
+name: roy_munch_assessment
+description: Roy Langa Munch assessment
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_svg: ^2.0.0
+  device_info_plus: ^3.2.3
+  flutter_bloc: ^8.1.4
+  equatable: ^2.0.5
+  grouped_list: ^5.1.2
+  hexcolor: ^2.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+
+
+  fonts:
+    - family: Konnect
+      fonts:
+        - asset: assets/fonts/konnect/KonnectBlack.otf
+        - asset: assets/fonts/konnect/KonnectBlackItalic.otf
+        - asset: assets/fonts/konnect/KonnectBold.otf
+        - asset: assets/fonts/konnect/KonnectBoldItalic.otf
+        - asset: assets/fonts/konnect/KonnectExtraBold.otf
+        - asset: assets/fonts/konnect/KonnectExtraBoldItalic.otf
+        - asset: assets/fonts/konnect/KonnectHairline.otf
+        - asset: assets/fonts/konnect/KonnectHairlineItalic.otf
+        - asset: assets/fonts/konnect/KonnectItalic.otf
+        - asset: assets/fonts/konnect/KonnectLight.otf
+        - asset: assets/fonts/konnect/KonnectLightItalic.otf
+        - asset: assets/fonts/konnect/KonnectMedium.otf
+        - asset: assets/fonts/konnect/KonnectMediumItalic.otf
+        - asset: assets/fonts/konnect/KonnectRegular.otf
+        - asset: assets/fonts/konnect/KonnectSemiBold.otf
+        - asset: assets/fonts/konnect/KonnectSemiBoldItalic.otf
+        - asset: assets/fonts/konnect/KonnectThin.otf
+        - asset: assets/fonts/konnect/KonnectThinItalic.otf
+
+          weight: 700
+
+    - family: CustomIcons
+      fonts:
+        - asset: assets/fonts/custom_icons/CustomIcons.ttf
