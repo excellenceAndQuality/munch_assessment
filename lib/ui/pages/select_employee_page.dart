@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
 import '../../models/user_class.dart';
 import '../../styles/colours.dart';
 import 'package:grouped_list/grouped_list.dart';
-
 import 'login_page.dart';
 
 class UserProvider extends ChangeNotifier {

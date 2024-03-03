@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Roy Munch Assessment',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.indigo,
           colorScheme: ThemeData().colorScheme.copyWith(primary: CustomColours.backgroundTextColour),
         ),
         home: const LandingPage(),

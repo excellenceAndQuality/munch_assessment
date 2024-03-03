@@ -6,7 +6,6 @@ import 'package:roy_munch_assessment/ui/pages/select_employee_page.dart';
 import 'package:roy_munch_assessment/ui/widgets/const_widgets.dart';
 import 'package:roy_munch_assessment/ui/widgets/pin_circle.dart';
 import '../../styles/strings.dart';
-import '../main.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
