@@ -203,64 +203,58 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  GestureDetector _enterPinWidget(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => SignIn()));
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        padding: const EdgeInsets.all(5),
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: CustomColours.white,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 54,
-                  height: 54,
-                  margin: const EdgeInsets.only(right: 10.0),
-                  decoration: BoxDecoration(
-                      color: CustomColours.primaryAccent1,
-                      borderRadius: BorderRadius.circular(15.0)),
-                  child: IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/lock_pin.svg',
-                      color: CustomColours.primaryColour1,
-                      height: 28,
-                      width: 28,
-                    ),
-                    onPressed: () {},
+  Container _enterPinWidget(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.all(5),
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: CustomColours.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 54,
+                height: 54,
+                margin: const EdgeInsets.only(right: 10.0),
+                decoration: BoxDecoration(
+                    color: CustomColours.primaryAccent1,
+                    borderRadius: BorderRadius.circular(15.0)),
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    'assets/icons/lock_pin.svg',
+                    color: CustomColours.primaryColour1,
+                    height: 28,
+                    width: 28,
                   ),
+                  onPressed: () {},
                 ),
-                Text("Pin",
-                    style: TextStyle(
-                        fontFamily: 'Konnect',
-                        fontWeight: FontWeight.w500,
-                        color: CustomColours.backgroundTextColour,
-                        fontSize: 14)),
-              ],
-            ),
-            Row(
-              children: [
-                PinCircle(),
-                SizedBox(width: 10,),
-                PinCircle(),
-                SizedBox(width: 10,),
-                PinCircle(),
-                SizedBox(width: 10,),
-                PinCircle(),
-                SizedBox(width: 20,),
-              ],
-            )
-          ],
-        ),
+              ),
+              const Text("Pin",
+                  style: TextStyle(
+                      fontFamily: 'Konnect',
+                      fontWeight: FontWeight.w500,
+                      color: CustomColours.backgroundTextColour,
+                      fontSize: 14)),
+            ],
+          ),
+          Row(
+            children: [
+              PinCircle(),
+              SizedBox(width: 10,),
+              PinCircle(),
+              SizedBox(width: 10,),
+              PinCircle(),
+              SizedBox(width: 10,),
+              PinCircle(),
+              SizedBox(width: 20,),
+            ],
+          )
+        ],
       ),
     );
   }

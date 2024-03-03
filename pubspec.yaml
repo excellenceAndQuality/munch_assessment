@@ -16,8 +16,10 @@ dependencies:
   device_info_plus: ^3.2.3
   flutter_bloc: ^8.1.4
   equatable: ^2.0.5
+  injectable: ^2.1.2
   grouped_list: ^5.1.2
   hexcolor: ^2.0.3
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

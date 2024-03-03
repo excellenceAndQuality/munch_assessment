@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:roy_munch_assessment/styles/colours.dart';
 import 'package:roy_munch_assessment/ui/pages/select_employee_page.dart';
 import 'package:roy_munch_assessment/ui/widgets/const_widgets.dart';
+import '../../blocs/login/login_bloc.dart';
+import '../../blocs/login/login_event.dart';
+import '../../blocs/login/login_state.dart';
 import '../../styles/strings.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,10 +19,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  String enteredPin = '';
-  bool isPasswordChecked = false;
-  bool isPasswordCorrect = false;
 
   @override
   void initState() {
@@ -35,128 +35,134 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
         backgroundColor: CustomColours.backgroundTextColour,
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Jims's place and menu icon container
-              const SizedBox(
-                height: 80,
-              ),
-              Container(
-                margin: const EdgeInsets.only(right: 20.0, left: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+        body: BlocBuilder<LoginBloc, LoginState>(
+          builder: (context, state){
+            return SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Jims's place and menu icon container
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(right: 20.0, left: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  color: CustomColours.white,
+                                  borderRadius: BorderRadius.circular(15.0)),
+                              child: const Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'JP',
+                                  style: TextStyle(
+                                      fontFamily: 'Konnect',
+                                      color: CustomColours.backgroundTextColour,
+                                      fontSize: 21),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "Jim's Place",
+                                  style: TextStyle(
+                                      fontFamily: 'Konnect',
+                                      color: CustomColours.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 21),
+                                ),
+                                Text(
+                                  "22 Burton Road",
+                                  style: TextStyle(
+                                      fontFamily: 'Konnect',
+                                      color: CustomColours.primaryAccent1,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                         Container(
                           width: 40,
                           height: 40,
                           decoration: BoxDecoration(
-                              color: CustomColours.white,
+                              color: const Color(0xFFFFFFFF).withOpacity(0.3),
                               borderRadius: BorderRadius.circular(15.0)),
-                          child: const Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              'JP',
-                              style: TextStyle(
-                                  fontFamily: 'Konnect',
-                                  color: CustomColours.backgroundTextColour,
-                                  fontSize: 21),
+                          child: IconButton(
+                            icon: SvgPicture.asset(
+                              'assets/icons/more_kebab.svg',
+                              color: CustomColours.white,
+                              height: 20,
+                              width: 20,
                             ),
+                            onPressed: () {
+                              setState(() {
+                                _showAppInfo(context);
+                              });
+                            },
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Jim's Place",
-                              style: TextStyle(
-                                  fontFamily: 'Konnect',
-                                  color: CustomColours.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 21),
-                            ),
-                            Text(
-                              "22 Burton Road",
-                              style: TextStyle(
-                                  fontFamily: 'Konnect',
-                                  color: CustomColours.primaryAccent1,
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 12),
-                            ),
-                          ],
                         ),
                       ],
                     ),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFFFFFFF).withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(15.0)),
-                      child: IconButton(
-                        icon: SvgPicture.asset(
-                          'assets/icons/more_kebab.svg',
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20),
+                    child: const Text(
+                      "Hi there, let's get you",
+                      style: TextStyle(
+                          fontFamily: 'Konnect',
                           color: CustomColours.white,
-                          height: 20,
-                          width: 20,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _showAppInfo(context);
-                          });
-                        },
-                      ),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 26),
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20),
+                    child: const Text(
+                      "logged in.",
+                      style: TextStyle(
+                          fontFamily: 'Konnect',
+                          color: CustomColours.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 26),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  _selectEmployeeWidget(context),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  if(state is InitialState)
+                  _initialPinWidget(context),
+                  if(state is UpdateState)
+                    _updatingPinWidget(context),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Expanded(child: _customKeyPad())
+                ],
               ),
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: const Text(
-                  "Hi there, let's get you",
-                  style: TextStyle(
-                      fontFamily: 'Konnect',
-                      color: CustomColours.white,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 26),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: const Text(
-                  "logged in.",
-                  style: TextStyle(
-                      fontFamily: 'Konnect',
-                      color: CustomColours.white,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 26),
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              _selectEmployeeWidget(context),
-              const SizedBox(
-                height: 10,
-              ),
-              _enterPinWidget(context),
-              const SizedBox(
-                height: 40,
-              ),
-              Expanded(child: _customKeyPad())
-            ],
-          ),
+            );
+          },
         ));
   }
 
@@ -219,93 +225,162 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  GestureDetector _enterPinWidget(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => SignIn()));
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        padding: const EdgeInsets.all(5),
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: CustomColours.white,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+  Widget _initialPinWidget(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.all(5),
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: CustomColours.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 54,
+                height: 54,
+                margin: const EdgeInsets.only(right: 10.0),
+                decoration: BoxDecoration(
+                  color: CustomColours.primaryAccent1,
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    'assets/icons/lock_pin.svg',
+                    color: CustomColours.primaryColour1,
+                    height: 28,
+                    width: 28,
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+              const Text(
+                "Pin",
+                style: TextStyle(
+                  fontFamily: 'Konnect',
+                  fontWeight: FontWeight.w500,
+                  color: CustomColours.backgroundTextColour,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        //  if (state is UpdateState && !state.passwordChecked)
             Row(
-              children: [
-                Container(
-                  width: 54,
-                  height: 54,
-                  margin: const EdgeInsets.only(right: 10.0),
-                  decoration: BoxDecoration(
-                      color: CustomColours.primaryAccent1,
-                      borderRadius: BorderRadius.circular(15.0)),
-                  child: IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/lock_pin.svg',
-                      color: CustomColours.primaryColour1,
-                      height: 28,
-                      width: 28,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                4,
+                    (index) {
+                  return Container(
+                    margin: const EdgeInsets.all(6.0),
+                    width: 16,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: index < "".length //state.enteredPin.length
+                          ? Colors.blueAccent
+                          : CustomColours.disabledColour,
                     ),
-                    onPressed: () {},
+                  );
+                },
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+  Widget _updatingPinWidget(BuildContext context) {
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.all(5),
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            color: CustomColours.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 54,
+                    height: 54,
+                    margin: const EdgeInsets.only(right: 10.0),
+                    decoration: BoxDecoration(
+                      color: CustomColours.primaryAccent1,
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/icons/lock_pin.svg',
+                        color: CustomColours.primaryColour1,
+                        height: 28,
+                        width: 28,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                  const Text(
+                    "Pin",
+                    style: TextStyle(
+                      fontFamily: 'Konnect',
+                      fontWeight: FontWeight.w500,
+                      color: CustomColours.backgroundTextColour,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              if (state is UpdateState && !state.passwordChecked)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    4,
+                        (index) {
+                      return Container(
+                        margin: const EdgeInsets.all(6.0),
+                        width: 16,
+                        height: 16,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: index < state.enteredPin.length
+                              ? Colors.blueAccent
+                              : CustomColours.disabledColour,
+                        ),
+                      );
+                    },
                   ),
                 ),
-                const Text("Pin",
-                    style: TextStyle(
-                        fontFamily: 'Konnect',
-                        fontWeight: FontWeight.w500,
-                        color: CustomColours.backgroundTextColour,
-                        fontSize: 14)),
-              ],
-            ),
-            if (!isPasswordChecked)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  4,
-                  (index) {
-                    return Container(
-                      margin: const EdgeInsets.all(6.0),
-                      width: 16,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: index < enteredPin.length
-                            ? Colors.blueAccent
-                            : CustomColours.disabledColour,
-                      ),
-                    );
-                  },
+              if (state is UpdateState && state.passwordChecked)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    4,
+                        (index) {
+                      return Container(
+                        margin: const EdgeInsets.all(6.0),
+                        width: 16,
+                        height: 16,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: state.passwordCorrect
+                              ? CustomColours.secondaryColour1
+                              : CustomColours.errorColour1,
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            if (isPasswordChecked)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  4,
-                  (index) {
-                    return Container(
-                      margin: const EdgeInsets.all(6.0),
-                      width: 16,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: isPasswordCorrect
-                            ? CustomColours.secondaryColour1
-                            : CustomColours.errorColour1,
-                      ),
-                    );
-                  },
-                ),
-              ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -506,78 +581,66 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _numberButton(String text) {
-    return Expanded(
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            if (enteredPin.length < 4) {
-              enteredPin += text.toString();
-
-              isPasswordChecked = false;
-            }
-            if (enteredPin.length == 4) {
-              isPasswordChecked = true;
-              if (enteredPin == widget.userPassword) {
-                isPasswordCorrect = true;
-              } else {
-                isPasswordCorrect = false;
-              }
-            }
-          });
-        },
-        child: Text(
-          text,
-          style: const TextStyle(
-              fontFamily: 'Konnect',
-              color: CustomColours.backgroundTextColour,
-              fontWeight: FontWeight.w400,
-              fontSize: 18),
-        ),
-      ),
-    );
+    return BlocBuilder<LoginBloc, LoginState>
+      (builder: (context, state){
+        return Expanded(
+          child: TextButton(
+            onPressed: () {
+              context.read<LoginBloc>().add(PinEntered(enteredPin: text, userPin: widget.userPassword));
+              setState(() {
+              });
+            },
+            child: Text(
+              text,
+              style: const TextStyle(
+                  fontFamily: 'Konnect',
+                  color: CustomColours.backgroundTextColour,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 18),
+            ),
+          ),
+        );
+    });
   }
 
   Widget _clearButton(String text) {
-    return Expanded(
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            enteredPin = '';
-            isPasswordChecked = false;
-            isPasswordCorrect = false;
-          });
-        },
-        child: Text(
-          text,
-          style: const TextStyle(
-              fontFamily: 'Konnect',
-              color: CustomColours.errorColour1,
-              fontWeight: FontWeight.w400,
-              fontSize: 18),
-        ),
-      ),
-    );
+    return BlocBuilder<LoginBloc, LoginState>
+      (builder: (context, state){
+       return Expanded(
+         child: TextButton(
+           onPressed: () {
+             context.read<LoginBloc>().add(PinCleared(enteredPin: ''));
+           },
+           child: Text(
+             text,
+             style: const TextStyle(
+                 fontFamily: 'Konnect',
+                 color: CustomColours.errorColour1,
+                 fontWeight: FontWeight.w400,
+                 fontSize: 18),
+           ),
+         ),
+       );
+    });
   }
 
   Widget _backSpaceButton() {
-    return Expanded(
-      child: IconButton(
-        onPressed: () {
-          setState(() {
-            if (enteredPin.isNotEmpty) {
-              enteredPin = enteredPin.substring(0, enteredPin.length - 1);
-              isPasswordChecked = false;
-              isPasswordCorrect = false;
-            }
-          });
-        },
-        icon: SvgPicture.asset(
-          'assets/icons/backspace_delete.svg',
-          color: CustomColours.backgroundTextColour,
-          height: 20,
-          width: 20,
+    return BlocBuilder<LoginBloc, LoginState>
+      (builder: (context, state){
+      return Expanded(
+        child: IconButton(
+          onPressed: () {
+            context.read<LoginBloc>().add(PinBackSpace());
+          },
+          icon: SvgPicture.asset(
+            'assets/icons/backspace_delete.svg',
+            color: CustomColours.backgroundTextColour,
+            height: 20,
+            width: 20,
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
+
 }
