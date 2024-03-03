@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:roy_munch_assessment/styles/colours.dart';
-import '../blocs/login/login_bloc.dart';
-import 'pages/landing_page.dart';
+import 'blocs/login/login_bloc.dart';
+import 'ui/pages/landing_page.dart';
 
 void main() {
   runApp(const MyApp());
