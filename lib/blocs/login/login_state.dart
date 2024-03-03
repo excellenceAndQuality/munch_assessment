@@ -1,6 +1,7 @@
 class LoginState {}
 
-class InitialState extends LoginState {}
+class InitialState extends LoginState {
+}
 
 class UpdateState extends LoginState {
   final bool passwordChecked;

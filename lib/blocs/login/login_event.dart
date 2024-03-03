@@ -15,3 +15,6 @@ class PinCleared extends LoginEvent {
 
   PinCleared({required this.enteredPin});
 }
+
+class ClearState extends LoginEvent {}
+

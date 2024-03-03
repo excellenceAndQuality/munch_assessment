@@ -19,11 +19,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  late LoginBloc _loginBloc;
 
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Password is: ${widget.userPassword}'),
@@ -33,8 +35,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    _loginBloc.add(ClearState());
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _loginBloc = BlocProvider.of<LoginBloc>(context);
     return Scaffold(
+        key: _scaffoldKey,
         backgroundColor: CustomColours.backgroundTextColour,
         body: BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state){
@@ -609,6 +619,7 @@ class _LoginPageState extends State<LoginPage> {
        return Expanded(
          child: TextButton(
            onPressed: () {
+
              context.read<LoginBloc>().add(PinCleared(enteredPin: ''));
            },
            child: Text(
@@ -642,5 +653,6 @@ class _LoginPageState extends State<LoginPage> {
       );
     });
   }
+
 
 }
