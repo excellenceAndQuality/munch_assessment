@@ -9,7 +9,7 @@ class PinCircle extends StatelessWidget {
     return Container(
       width: 16.0,
       height: 16.0,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: CustomColours.disabledColour,
       ),

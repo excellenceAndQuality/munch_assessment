@@ -243,7 +243,7 @@ class _LandingPageState extends State<LandingPage> {
             ],
           ),
           Row(
-            children: [
+            children: const [
               PinCircle(),
               SizedBox(width: 10,),
               PinCircle(),
@@ -342,9 +342,9 @@ class _LandingPageState extends State<LandingPage> {
     return Expanded(
       child: IconButton(
         onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Tap Select Employee'),
-            duration: const Duration(seconds: 3),
+            duration: Duration(seconds: 3),
           ));
         },
         icon: SvgPicture.asset(

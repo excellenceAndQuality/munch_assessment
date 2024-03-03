@@ -179,6 +179,7 @@ class _LoginPageState extends State<LoginPage> {
   GestureDetector _selectEmployeeWidget(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        _loginBloc.add(ClearState());
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => const SelectEmployeePage()));
       },
@@ -228,7 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: 40,
               ),
               onPressed: () {},
-            )
+            ),
           ],
         ),
       ),
@@ -302,6 +303,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
   Widget _updatingPinWidget(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
@@ -391,6 +393,116 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       },
+    );
+  }
+
+  Widget _customKeyPad() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+        color: CustomColours.white,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+      ),
+      // color: CustomColours.white,
+      child: Column(
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                _numberButton('1'),
+                verticalDivider,
+                _numberButton('2'),
+                verticalDivider,
+                _numberButton('3'),
+              ],
+            ),
+          ),
+          horizontalDivider,
+          Expanded(
+            child: Row(
+              children: [
+                _numberButton('4'),
+                verticalDivider,
+                _numberButton('5'),
+                verticalDivider,
+                _numberButton('6'),
+              ],
+            ),
+          ),
+          horizontalDivider,
+          Expanded(
+            child: Row(
+              children: [
+                _numberButton('7'),
+                verticalDivider,
+                _numberButton('8'),
+                verticalDivider,
+                _numberButton('9'),
+              ],
+            ),
+          ),
+          horizontalDivider,
+          Expanded(
+            child: Row(
+              children: [
+                _clearButton('Clear'),
+                verticalDivider,
+                _numberButton('0'),
+                verticalDivider,
+                _backSpaceButton(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _numberButton(String text) {
+    return Expanded(
+      child: TextButton(
+        onPressed: () => context.read<LoginBloc>().add(PinEntered(enteredPin: text, userPin: widget.userPassword)),
+        child: Text(
+          text,
+          style: const TextStyle(
+              fontFamily: 'Konnect',
+              color: CustomColours.backgroundTextColour,
+              fontWeight: FontWeight.w400,
+              fontSize: 18),
+        ),
+      ),
+    );
+  }
+
+  Widget _clearButton(String text) {
+    return Expanded(
+      child: TextButton(
+        onPressed: () => context.read<LoginBloc>().add(PinCleared(enteredPin: '')),
+        child: Text(
+          text,
+          style: const TextStyle(
+              fontFamily: 'Konnect',
+              color: CustomColours.errorColour1,
+              fontWeight: FontWeight.w400,
+              fontSize: 18),
+        ),
+      ),
+    );
+  }
+
+  Widget _backSpaceButton() {
+    return Expanded(
+      child: IconButton(
+        onPressed: () => context.read<LoginBloc>().add(PinBackSpace()),
+        icon: SvgPicture.asset(
+          'assets/icons/backspace_delete.svg',
+          color: CustomColours.backgroundTextColour,
+          height: 20,
+          width: 20,
+        ),
+      ),
     );
   }
 
@@ -524,134 +636,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         });
-  }
-
-  Widget _customKeyPad() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: CustomColours.white,
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-      ),
-      // color: CustomColours.white,
-      child: Column(
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                _numberButton('1'),
-                verticalDivider,
-                _numberButton('2'),
-                verticalDivider,
-                _numberButton('3'),
-              ],
-            ),
-          ),
-          horizontalDivider,
-          Expanded(
-            child: Row(
-              children: [
-                _numberButton('4'),
-                verticalDivider,
-                _numberButton('5'),
-                verticalDivider,
-                _numberButton('6'),
-              ],
-            ),
-          ),
-          horizontalDivider,
-          Expanded(
-            child: Row(
-              children: [
-                _numberButton('7'),
-                verticalDivider,
-                _numberButton('8'),
-                verticalDivider,
-                _numberButton('9'),
-              ],
-            ),
-          ),
-          horizontalDivider,
-          Expanded(
-            child: Row(
-              children: [
-                _clearButton('Clear'),
-                verticalDivider,
-                _numberButton('0'),
-                verticalDivider,
-                _backSpaceButton(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _numberButton(String text) {
-    return BlocBuilder<LoginBloc, LoginState>
-      (builder: (context, state){
-        return Expanded(
-          child: TextButton(
-            onPressed: () {
-              context.read<LoginBloc>().add(PinEntered(enteredPin: text, userPin: widget.userPassword));
-              setState(() {
-              });
-            },
-            child: Text(
-              text,
-              style: const TextStyle(
-                  fontFamily: 'Konnect',
-                  color: CustomColours.backgroundTextColour,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 18),
-            ),
-          ),
-        );
-    });
-  }
-
-  Widget _clearButton(String text) {
-    return BlocBuilder<LoginBloc, LoginState>
-      (builder: (context, state){
-       return Expanded(
-         child: TextButton(
-           onPressed: () {
-
-             context.read<LoginBloc>().add(PinCleared(enteredPin: ''));
-           },
-           child: Text(
-             text,
-             style: const TextStyle(
-                 fontFamily: 'Konnect',
-                 color: CustomColours.errorColour1,
-                 fontWeight: FontWeight.w400,
-                 fontSize: 18),
-           ),
-         ),
-       );
-    });
-  }
-
-  Widget _backSpaceButton() {
-    return BlocBuilder<LoginBloc, LoginState>
-      (builder: (context, state){
-      return Expanded(
-        child: IconButton(
-          onPressed: () {
-            context.read<LoginBloc>().add(PinBackSpace());
-          },
-          icon: SvgPicture.asset(
-            'assets/icons/backspace_delete.svg',
-            color: CustomColours.backgroundTextColour,
-            height: 20,
-            width: 20,
-          ),
-        ),
-      );
-    });
   }
 
 

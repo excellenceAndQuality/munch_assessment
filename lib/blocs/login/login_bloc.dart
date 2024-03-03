@@ -38,8 +38,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(UpdateState(isPasswordChecked, isPasswordCorrect, enteredPin));
     }
 
-    print("Update State: " + event.enteredPin.length.toString());
-
   }
 
   void onPinBackSpace(PinBackSpace event, Emitter<LoginState> emit) async {
@@ -48,17 +46,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       isPasswordChecked = false;
       isPasswordCorrect = false;
       emit(UpdateState(isPasswordChecked, isPasswordCorrect, enteredPin));
-      print("Back Space first: " + enteredPin.length.toString());
-    }else if(enteredPin.isNotEmpty && enteredPin.length == 5){
-      enteredPin = enteredPin.substring(0, enteredPin.length - 2);
-      isPasswordChecked = false;
-      isPasswordCorrect = false;
-      emit(UpdateState(isPasswordChecked, isPasswordCorrect, enteredPin));
-      print("Back Space second: " + enteredPin.length.toString());
     }
-
-
-
   }
 
   void onPinCleared(PinCleared event, Emitter<LoginState> emit) async {
@@ -66,7 +54,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     isPasswordChecked = false;
     isPasswordCorrect = false;
     emit(UpdateState(isPasswordChecked, isPasswordCorrect, enteredPin));
-    print("Pin cleared: " + enteredPin.length.toString());
   }
 
   void onClearState(ClearState event, Emitter<LoginState> emit) async {
@@ -74,7 +61,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     isPasswordChecked = false;
     isPasswordCorrect = false;
     emit(UpdateState(isPasswordChecked, isPasswordCorrect, ""));
-    print("Clear State Called: " + enteredPin.length.toString() + " Checked: " + isPasswordChecked.toString() + "Correct: " + isPasswordCorrect.toString());
   }
 
 

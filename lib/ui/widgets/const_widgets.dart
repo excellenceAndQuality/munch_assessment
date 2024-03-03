@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../styles/colours.dart';
 
 const verticalDivider = VerticalDivider(

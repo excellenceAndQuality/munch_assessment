@@ -1,7 +1,4 @@
-import 'dart:convert';
 import 'dart:ui';
-
-import 'package:equatable/equatable.dart';
 
 class User {
   final String userName;
